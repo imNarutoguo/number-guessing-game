@@ -18,9 +18,28 @@
         
         <div class="result-section">
             <p id="message"></p>
-            <p id="attempts">Attempts: 0</p>
+            <p id="attempts">Remaining attempts: <span id="remaining-attempts">3</span></p>
         </div>
     </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content success">
+            <h2>🎉 Congratulations! 🎉</h2>
+            <p>You guessed the number correctly!</p>
+            <button id="play-again-success">Play Again</button>
+        </div>
+    </div>
+
+    <!-- Failure Modal -->
+    <div id="failure-modal" class="modal">
+        <div class="modal-content failure">
+            <h2>💥 Game Over! 💥</h2>
+            <p>The number was: <span id="target-number"></span></p>
+            <button id="play-again-failure">Try Again</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html> 

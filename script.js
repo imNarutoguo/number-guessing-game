@@ -1,22 +1,29 @@
-// Generate a random number between 1 and 100
+// Game state
 const targetNumber = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
+let remainingAttempts = 3;
+// let attempts = 0; // Old logic: count attempts
 
 // Get DOM elements
 const guessInput = document.getElementById('guess-input');
 const guessButton = document.getElementById('guess-button');
 const message = document.getElementById('message');
-const attemptsDisplay = document.getElementById('attempts');
+const remainingAttemptsDisplay = document.getElementById('remaining-attempts');
+// const attemptsDisplay = document.getElementById('attempts'); // Old logic: attempts display
+const successModal = document.getElementById('success-modal');
+const failureModal = document.getElementById('failure-modal');
+const targetNumberDisplay = document.getElementById('target-number');
+const playAgainSuccess = document.getElementById('play-again-success');
+const playAgainFailure = document.getElementById('play-again-failure');
 
-// Add click event listener
+// Add event listeners
 guessButton.addEventListener('click', checkGuess);
-
-// Add Enter key support
 guessInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         checkGuess();
     }
 });
+playAgainSuccess.addEventListener('click', resetGame);
+playAgainFailure.addEventListener('click', resetGame);
 
 function checkGuess() {
     const guess = parseInt(guessInput.value);
@@ -27,23 +34,66 @@ function checkGuess() {
         return;
     }
     
-    attempts++;
-    attemptsDisplay.textContent = `Attempts: ${attempts}`;
+    // New logic: count remaining attempts
+    remainingAttempts--;
+    remainingAttemptsDisplay.textContent = remainingAttempts;
+    
+    // Old logic: count total attempts
+    // attempts++;
+    // attemptsDisplay.textContent = `Attempts: ${attempts}`;
     
     // Compare guess with target number
     if (guess === targetNumber) {
-        message.textContent = `Congratulations! You guessed it in ${attempts} attempts!`;
-        message.style.color = '#4CAF50';
-        guessButton.disabled = true;
-        guessInput.disabled = true;
-    } else if (guess < targetNumber) {
-        message.textContent = 'Too low! Try a higher number.';
-        message.style.color = '#2196F3';
+        showSuccessModal();
+        // Old logic: show success message
+        // message.textContent = `Congratulations! You guessed it in ${attempts} attempts!`;
+        // message.style.color = '#4CAF50';
+        // guessButton.disabled = true;
+        // guessInput.disabled = true;
+    } else if (remainingAttempts === 0) {
+        showFailureModal();
     } else {
-        message.textContent = 'Too high! Try a lower number.';
-        message.style.color = '#f44336';
+        message.textContent = guess < targetNumber ? 
+            'Too low! Try a higher number.' : 
+            'Too high! Try a lower number.';
+        message.style.color = guess < targetNumber ? '#2196F3' : '#f44336';
     }
     
     // Clear input field
     guessInput.value = '';
+}
+
+function showSuccessModal() {
+    successModal.style.display = 'block';
+    guessButton.disabled = true;
+    guessInput.disabled = true;
+}
+
+function showFailureModal() {
+    targetNumberDisplay.textContent = targetNumber;
+    failureModal.style.display = 'block';
+    guessButton.disabled = true;
+    guessInput.disabled = true;
+}
+
+function resetGame() {
+    // Reset game state
+    remainingAttempts = 3;
+    remainingAttemptsDisplay.textContent = remainingAttempts;
+    message.textContent = '';
+    
+    // Enable input and button
+    guessButton.disabled = false;
+    guessInput.disabled = false;
+    
+    // Hide modals
+    successModal.style.display = 'none';
+    failureModal.style.display = 'none';
+    
+    // Generate new target number
+    targetNumber = Math.floor(Math.random() * 100) + 1;
+    
+    // Old logic: reset attempts
+    // attempts = 0;
+    // attemptsDisplay.textContent = `Attempts: ${attempts}`;
 } 
