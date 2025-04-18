@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Number Guessing Game</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <!-- Twitter Card 标签 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@your_twitter_handle">
+    <meta name="twitter:title" content="Number Guessing Game">
+    <meta name="twitter:description" content="Guess the number between 1 and 100! Play now!">
+    <meta name="twitter:image" content="./game-preview.png">
+    <meta name="twitter:url" content="./">
 </head>
 <body>
     <div class="game-container">
@@ -20,13 +30,27 @@
             <p id="message"></p>
             <p id="attempts">Remaining attempts: <span id="remaining-attempts">3</span></p>
         </div>
+
+        <!-- Game History Section -->
+        <div class="history-section">
+            <h3>Game History</h3>
+            <div id="game-history"></div>
+        </div>
     </div>
 
     <!-- Success Modal -->
     <div id="success-modal" class="modal">
         <div class="modal-content success">
             <h2>🎉 Congratulations! 🎉</h2>
-            <p>You guessed the number correctly!</p>
+            <p>You guessed the number in <span id="success-attempts">X</span> attempts!</p>
+            <!-- Share Section -->
+            <div class="share-section">
+                <p>Share your victory!</p>
+                <button id="twitter-share" class="share-button">
+                    <img src="twitter-icon.png" alt="Twitter" class="share-icon">
+                    Share on Twitter
+                </button>
+            </div>
             <button id="play-again-success">Play Again</button>
         </div>
     </div>
@@ -42,4 +66,4 @@
 
     <script src="script.js"></script>
 </body>
-</html> 
+</html>

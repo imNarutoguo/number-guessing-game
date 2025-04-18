@@ -183,4 +183,75 @@ button:hover {
 @keyframes confetti {
     0% { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+.history-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.history-section h3 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+#game-history {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.game-record {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.game-record.success {
+    border-left: 4px solid #4CAF50;
+}
+
+.game-record.failure {
+    border-left: 4px solid #f44336;
+}
+
+.game-record .time {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.game-record .attempts {
+    font-weight: bold;
+}
+
+/* Share Section Styles */
+.share-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.share-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1DA1F2;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.share-button:hover {
+    background-color: #1991db;
+}
+
+.share-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
 } 
