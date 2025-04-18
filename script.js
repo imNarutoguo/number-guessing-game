@@ -26,8 +26,21 @@ const successModal = document.getElementById('success-modal');
 const failureModal = document.getElementById('failure-modal');
 const targetNumberDisplay = document.getElementById('target-number');
 const playAgainSuccess = document.getElementById('play-again-success');
-const playAgainFailure = document.getElementById('play-again-failure');
+const tryAgainButton = document.getElementById('try-again');
 const gameHistory = document.getElementById('game-history');
+
+// 调试信息：检查所有必要的DOM元素
+console.log('DOM Elements Check:');
+console.log('guessInput:', guessInput);
+console.log('guessButton:', guessButton);
+console.log('message:', message);
+console.log('remainingAttemptsDisplay:', remainingAttemptsDisplay);
+console.log('successModal:', successModal);
+console.log('failureModal:', failureModal);
+console.log('targetNumberDisplay:', targetNumberDisplay);
+console.log('playAgainSuccess:', playAgainSuccess);
+console.log('tryAgainButton:', tryAgainButton);
+console.log('gameHistory:', gameHistory);
 
 // Add event listeners
 guessButton.addEventListener('click', checkGuess);
@@ -36,16 +49,29 @@ guessInput.addEventListener('keypress', function(e) {
         checkGuess();
     }
 });
-playAgainSuccess.addEventListener('click', resetGame);
-playAgainFailure.addEventListener('click', resetGame);
+
+// 确保正确绑定重置游戏事件
+if (playAgainSuccess) {
+    playAgainSuccess.addEventListener('click', resetGame);
+    console.log('Success button event listener added');
+}
+if (tryAgainButton) {
+    tryAgainButton.addEventListener('click', function() {
+        console.log('Try Again button clicked');
+        resetGame();
+    });
+    console.log('Try Again button event listener added');
+} else {
+    console.error('Try Again button not found!');
+}
 
 // Load game history
 loadGameHistory();
 
 // Twitter分享功能
 function shareOnTwitter(attempts) {
-    // 使用相对路径
-    const gameUrl = window.location.origin + window.location.pathname;
+    // 使用新的仓库URL
+    const gameUrl = 'https://imnarutoguo.github.io/number_game/';
     const text = `I guessed the number in ${attempts} attempts! Can you beat my score? 🎮 Play now: ${gameUrl} #NumberGuessingGame`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
     window.open(twitterUrl, '_blank');
@@ -94,25 +120,38 @@ function showSuccessModal(attempts) {
 }
 
 function showFailureModal() {
-    targetNumberDisplay.textContent = targetNumber;
+    console.log('Showing failure modal');
     failureModal.style.display = 'block';
+    targetNumberDisplay.textContent = targetNumber;
     guessButton.disabled = true;
     guessInput.disabled = true;
 }
 
 function resetGame() {
+    console.log('Starting game reset...');
+    
+    // 重置游戏状态
+    targetNumber = Math.floor(Math.random() * 100) + 1;
     remainingAttempts = 3;
     totalAttempts = 0;
-    remainingAttemptsDisplay.textContent = remainingAttempts;
+    
+    console.log('New target number:', targetNumber);
+    console.log('Remaining attempts reset to:', remainingAttempts);
+    
+    // 更新UI
     message.textContent = '';
+    remainingAttemptsDisplay.textContent = remainingAttempts;
+    guessInput.value = '';
     
-    guessButton.disabled = false;
+    // 启用输入和按钮
     guessInput.disabled = false;
+    guessButton.disabled = false;
     
+    // 隐藏模态框
     successModal.style.display = 'none';
     failureModal.style.display = 'none';
     
-    targetNumber = Math.floor(Math.random() * 100) + 1;
+    console.log('Game reset complete');
 }
 
 function saveGameResult(isSuccess) {

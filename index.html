@@ -13,8 +13,8 @@
     <meta name="twitter:site" content="@your_twitter_handle">
     <meta name="twitter:title" content="Number Guessing Game">
     <meta name="twitter:description" content="Guess the number between 1 and 100! Play now!">
-    <meta name="twitter:image" content="./game-preview.png">
-    <meta name="twitter:url" content="./">
+    <meta name="twitter:image" content="https://imnarutoguo.github.io/number_game/game-preview.png">
+    <meta name="twitter:url" content="https://imnarutoguo.github.io/number_game/">
 </head>
 <body>
     <div class="game-container">
@@ -43,7 +43,6 @@
         <div class="modal-content success">
             <h2>🎉 Congratulations! 🎉</h2>
             <p>You guessed the number in <span id="success-attempts">X</span> attempts!</p>
-            <!-- Share Section -->
             <div class="share-section">
                 <p>Share your victory!</p>
                 <button id="twitter-share" class="share-button">
@@ -60,7 +59,7 @@
         <div class="modal-content failure">
             <h2>💥 Game Over! 💥</h2>
             <p>The number was: <span id="target-number"></span></p>
-            <button id="play-again-failure">Try Again</button>
+            <button id="try-again" class="modal-button">Try Again</button>
         </div>
     </div>
 
